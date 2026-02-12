@@ -1,21 +1,27 @@
-import { Component, Input, inject, signal, OnInit, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLinkWithHref } from '@angular/router';
-import { ProductComponent } from '@products/components/product/product.component';
+import {
+  Component,
+  Input,
+  inject,
+  signal,
+  OnInit,
+  OnChanges,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterLinkWithHref } from "@angular/router";
+import { ProductComponent } from "@products/components/product/product.component";
 
-import { Product } from '@shared/models/product.model';
-import { CartService } from '@shared/services/cart.service';
-import { ProductService } from '@shared/services/product.service';
-import { CategoryService } from '@shared/services/category.service';
-import { Category } from '@shared/models/category.model';
+import { Product } from "@shared/models/product.model";
+import { CartService } from "@shared/services/cart.service";
+import { ProductService } from "@shared/services/product.service";
+import { CategoryService } from "@shared/services/category.service";
+import { Category } from "@shared/models/category.model";
 
 @Component({
-    selector: 'app-list',
-    imports: [CommonModule, ProductComponent, RouterLinkWithHref],
-    templateUrl: './list.component.html'
+  selector: "app-list",
+  imports: [CommonModule, ProductComponent, RouterLinkWithHref],
+  templateUrl: "./list.component.html",
 })
 export default class ListComponent implements OnInit, OnChanges {
-
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
   private cartService = inject(CartService);
@@ -32,30 +38,28 @@ export default class ListComponent implements OnInit, OnChanges {
   }
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product)
+    this.cartService.addToCart(product);
   }
 
   private getProducts() {
-    this.productService.getProducts(this.category_id)
-    .subscribe({
+    this.productService.getProducts(this.category_id).subscribe({
       next: (products) => {
         this.products.set(products);
       },
       error: (error) => {
-        console.error('Error al cargar los productos:', error);
-      }
-    })
+        console.error("Error al cargar los productos:", error);
+      },
+    });
   }
 
   private getCategories() {
-    this.categoryService.getAll()
-    .subscribe({
+    this.categoryService.getAll().subscribe({
       next: (data) => {
         this.categories.set(data);
       },
       error: (error) => {
-        console.error('Error al cargar las categorías:', error);
-      }
-    })
+        console.error("Error al cargar las categorías:", error);
+      },
+    });
   }
 }
