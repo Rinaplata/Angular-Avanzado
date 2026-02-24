@@ -3,9 +3,12 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
-const prettierRules = require("esLint-plugin-prettier/recommended");
+const prettierRules = require("eslint-plugin-prettier/recommended");
 
 module.exports = defineConfig([
+  {
+    ignores: ["src/index.html"],
+  },
   {
     files: ["**/*.ts"],
     extends: [
@@ -37,6 +40,10 @@ module.exports = defineConfig([
   },
   {
     files: ["**/*.html"],
+    languageOptions: {
+      // Required for Angular control flow syntax (@if, @for, @switch)
+      parser: angular.templateParser,
+    },
     extends: [
       angular.configs.templateRecommended,
       angular.configs.templateAccessibility,

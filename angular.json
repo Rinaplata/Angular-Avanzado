@@ -66,6 +66,20 @@
               ],
               "outputHashing": "all"
             },
+            "staging": {
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -89,6 +103,9 @@
             "production": {
               "buildTarget": "store:build:production"
             },
+              "staging": {
+                "buildTarget": "store:build:staging"
+              },
             "development": {
               "buildTarget": "store:build:development"
             }

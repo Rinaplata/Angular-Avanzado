@@ -18,7 +18,8 @@ export class ProductService {
   }
 
   getOne(id: string) {
-    return this.http.get<Product>(`${environment.apiUrl}
-      /api/v1/products/${id}`);
+    return this.http.get<Product>(
+      `${environment.apiUrl}/api/v1/products/${id}`,
+    );
   }
 }
